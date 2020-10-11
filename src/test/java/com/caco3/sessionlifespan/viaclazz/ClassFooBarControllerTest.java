@@ -70,7 +70,7 @@ public class ClassFooBarControllerTest {
      * Summarizing the two tests:
      * 1. In one session we hit two endpoints:
      * 1.1. {@link ClassFooBarController#putToSession(FooBar)}
-     * 1.1.1. After the endpoint hit the session will have an attribute equal to posted FooBar with name = "fooBar"
+     * 1.1.1. After the endpoint hit the session will have an attribute equal to posted FooBar with baz = "myBaz"
      * 1.2. {@link ClassFooBarController#getFoobar(FooBar, OutputStream)}
      * 1.2.1. The first parameter is the FooBar put in the previous step (note that the attribute name is the same in all steps)
      * 2. This test is successful because:
