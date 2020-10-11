@@ -26,12 +26,21 @@ public class InterfaceFooBarController {
 
     private static final Logger logger = LoggerFactory.getLogger(InterfaceFooBarController.class);
 
+    /**
+     * One of the possible methods to specify name explicitly
+     * is to add {@link Model} as an argument and put received {@link FooBarImpl}
+     * by hand under the required name. (See comments (1)).
+     * <p>
+     * Note that if we change type to {@link FooBar} we will get
+     * "No primary or default constructor found for interface com.caco3.sessionlifespan.viainterface.FooBar",
+     * which is logical (How one can instantiate interface without a constructor?)
+     */
     @PostMapping
     public void putToSession(
-            // Model model,
+            // Model model, // (1)
             FooBarImpl fooBar) {
         logger.info("fooBar = {} put into session implicitly", fooBar);
-//		model.addAttribute(FOO_BAR_ATTRIBUTE, fooBar);
+//		model.addAttribute(FOO_BAR_ATTRIBUTE, fooBar); // (1)
     }
 
     @GetMapping
@@ -45,14 +54,5 @@ public class InterfaceFooBarController {
     @GetMapping("/model")
     public void getModel(Model model) {
         model.asMap().forEach((name, value) -> logger.info("Model: '{}' -> '{}'", name, value));
-    }
-
-    @GetMapping("/session")
-    public void getSession(HttpSession httpSession) {
-        Enumeration<String> names = httpSession.getAttributeNames();
-        while (names.hasMoreElements()) {
-            String name = names.nextElement();
-            logger.info("Session: '{}' -> '{}'", name, httpSession.getAttribute(name));
-        }
     }
 }
